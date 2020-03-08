@@ -7,15 +7,19 @@ a to za použití pouze základních knihoven. Konkrétně musel server umět ob
 
 ## Implementace
 
-Zvolila jsem implementaci v jazyku Python.
+Zvolila jsem implementaci v jazyku Python s využitím knihoven `socket`, `sys` a `re`.
 
 ### Server
 
-Za pomocí knihovny `socket` se vytvoří socket, naváže na port čísla předaného argumentem a začne naslouchat. Samotný server je poté implementován jako nekonečná smyčka, která se ukončí a zavře socket pouze při přerušení z klávesnice. Jakmile dojde v připojení klienta ve smyčce, přijme od něj data, zpracuje, pošle odpověď, zavře spojení a znovu čeká.
+Program vytvoří socket, naváže na port čísla předaného argumentem a začne naslouchat. Samotný server je poté implementován jako nekonečná smyčka, která se ukončí a zavře socket pouze při přerušení z klávesnice. Jakmile dojde v připojení klienta ve smyčce, přijme od něj data, zpracuje, pošle odpověď, zavře spojení a znovu čeká.
 
 ### GET
 
+Server zkontroluje správnost formátu přijatých dat, vyextrahuje z nich klíčové informace (jméno/adresu a typ operace) a na jejich základě pomocí funkce `gethostbyname` nebo `gethostbyaddr` získá překlad. V případě, že dostane výsledek, ho odešle klientovi. Kontroluje také (pomocí regulárního výrazu na IPv4 adresu), zda-li není kombinace doménové jméno a typ A nebo naopak ip adresa a typ PTR.
+
 ### POST
+
+Server zkontroluje správnost formátu dat. Pro každý řádek za hlavičkou provede stejný postup jako pro metodu GET. Zároveň si pamatuje, zda vůbec nějaký výsledek již našel, aby mohl případně na konci zaslat správný chybový kód. 
 
 ### Návratové kódy
 
