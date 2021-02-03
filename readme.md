@@ -1,5 +1,9 @@
 # IPK projekt 1
 
+Letní 2019/2020
+
+Body: 14/20
+
 ## Zadání
 
 Cílem projektu bylo vytvořit server na překlad doménových jmen v jednom z vybraných jazyků,
